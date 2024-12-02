@@ -50,13 +50,13 @@ public class Main {
                     scheduler = new PriorityScheduler(contextSwitchingTime);
                     break;
                 case 2:
-                    scheduler = new SJFScheduler(contextSwitchingTime);
+                    // scheduler = new SJFScheduler(contextSwitchingTime);
                     break;
                 case 3:
-                    scheduler = new SRTFScheduler(contextSwitchingTime);
+                    // scheduler = new SRTFScheduler(contextSwitchingTime);
                     break;
                 case 4:
-                    scheduler = new FCAIScheduler(contextSwitchingTime);
+                    // scheduler = new FCAIScheduler(contextSwitchingTime);
                     break;
                 case 5:
                     System.exit(0);
