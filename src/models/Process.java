@@ -16,6 +16,7 @@ public class Process {
     this.color = color;
     this.arrivalTime = arrivalTime;
     this.burstTime = burstTime;
+    this.remainingBurstTime = burstTime;
     this.priority = priority;
   }
 

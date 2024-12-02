@@ -1,15 +1,15 @@
-import schedulers.*;
-import models.Process;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import models.Process;
+import schedulers.*;
 
 
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         List<Process> processes = new ArrayList<>();
+        List<Process> processesCopy = new ArrayList<>();
 
         System.out.println("Enter the number of processes:");
         int n = scanner.nextInt();
@@ -42,21 +42,27 @@ public class Main {
             System.out.println("4. FCAI Scheduling");
             System.out.println("5. Exit");
 
+            // Make a copy of the processes to avoid modifying the original list of processes as the scheduler may alter the attributes of the processes.
+            processesCopy.clear();
+            for (Process p : processes) {
+                processesCopy.add(new Process(p.getName(), p.getColor(), p.getArrivalTime(), p.getBurstTime(), p.getPriority()));
+            }
+    
             int choice = scanner.nextInt();
             Scheduler scheduler = null;
 
             switch (choice) {
                 case 1:
-                    scheduler = new PriorityScheduler(contextSwitchingTime);
+                    // scheduler = new PriorityScheduler(contextSwitchingTime);
                     break;
                 case 2:
-                    scheduler = new SJFScheduler(contextSwitchingTime);
+                    // scheduler = new SJFScheduler(contextSwitchingTime);
                     break;
                 case 3:
                     scheduler = new SRTFScheduler(contextSwitchingTime);
                     break;
                 case 4:
-                    scheduler = new FCAIScheduler(contextSwitchingTime);
+                    // scheduler = new FCAIScheduler(contextSwitchingTime);
                     break;
                 case 5:
                     System.exit(0);
@@ -66,7 +72,7 @@ public class Main {
             }
 
             if (scheduler != null) {
-                scheduler.schedule(processes);
+                scheduler.schedule(processesCopy);
                 scheduler.printExecutionOrder();
                 scheduler.printMetrics();
             }
