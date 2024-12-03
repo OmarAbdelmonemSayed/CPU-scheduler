@@ -48,16 +48,22 @@ public class SRTFScheduler implements Scheduler {
 
   @Override
   public void schedule(List<Process> processes) {
-    total = processes.size();
-    currentProcesses = processes;
-    Map<Process, Integer> lastQueueTimes = new HashMap<>();
+    List<Process> processes2 = new ArrayList<>();
 
     for (Process p : processes) {
+      processes2.add(new Process(p.getName(), p.getColor(), p.getArrivalTime(), p.getBurstTime(), p.getPriority()));
+    }
+
+    total = processes2.size();
+    currentProcesses = processes2;
+    Map<Process, Integer> lastQueueTimes = new HashMap<>();
+
+    for (Process p : processes2) {
       p.setPriority(p.getRemainingBurstTime());
     }
 
     while (completed < total) {
-        for (Process p : processes) {
+        for (Process p : processes2) {
             if (p.getArrivalTime() == time) {
                 readyQueue.add(p);
                 lastQueueTimes.put(p, time);
