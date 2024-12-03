@@ -18,7 +18,7 @@ public class PriorityScheduler implements Scheduler {
 
   @Override
   public void schedule(List<Process> processes) {
-    this.readyQueue = processes;
+    this.readyQueue = new ArrayList<>(processes);
 
     while (!this.readyQueue.isEmpty()) {
       List<Process> availableProcesses = readyQueue.stream()
