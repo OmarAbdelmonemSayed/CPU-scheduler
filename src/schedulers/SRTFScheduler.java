@@ -90,6 +90,7 @@ public class SRTFScheduler implements Scheduler {
 
           int left = time, right = time + 1;
           current.setRemainingBurstTime(current.getRemainingBurstTime() - 1);
+          current.setPriority(current.getPriority() - 1);
           lastQueueTimes.put(current, time + 1);
 
           if (!executionOrder.isEmpty() && executionOrder.get(executionOrder.size() - 1).getProcess() == current) {
