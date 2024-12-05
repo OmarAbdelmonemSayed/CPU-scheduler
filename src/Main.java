@@ -30,8 +30,12 @@ public class Main {
             int burstTime = scanner.nextInt();
             System.out.print("Priority: ");
             int priority = scanner.nextInt();
+            System.out.print("Quantum: ");
+            int quantum = scanner.nextInt();
 
-            processes.add(new Process(name, color, arrivalTime, burstTime, priority));
+            Process process = new Process(name, color, arrivalTime, burstTime, priority);
+            process.setQuantum(quantum);
+            processes.add(process);
         }
 
         while (true) {
@@ -56,7 +60,7 @@ public class Main {
                     // scheduler = new SRTFScheduler(contextSwitchingTime);
                     break;
                 case 4:
-                    // scheduler = new FCAIScheduler(contextSwitchingTime);
+                    scheduler = new FCAIScheduler(contextSwitchingTime);
                     break;
                 case 5:
                     System.exit(0);
