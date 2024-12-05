@@ -2,7 +2,6 @@ package schedulers;
 
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.LinkedList;
 import java.util.List;
 
 import models.Process;
@@ -56,7 +55,7 @@ class ExecutionOrderData {
 
 
 public class FCAIScheduler implements Scheduler {
-  private List<Process> readyQueue = new LinkedList<>();
+  private List<Process> readyQueue = new ArrayList<>();
   private List<ExecutionOrderData> executionOrder = new ArrayList<>();
   private List<Process> completedProcesses = new ArrayList<>();
   private int currentTime = 0;
@@ -153,7 +152,7 @@ public class FCAIScheduler implements Scheduler {
 
       if (prevProcess != null && (!nextProcess.equals(prevProcess) || prevExecutionTime == prevQuantum)) {
 
-        // Remove previous process from available queue
+        // Remove previous process from ready queue
         readyQueue.remove(prevProcess);
 
         // Update previous process quantum

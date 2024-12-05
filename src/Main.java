@@ -51,7 +51,7 @@ public class Main {
 
             switch (choice) {
                 case 1:
-                    scheduler = new PriorityScheduler(contextSwitchingTime);
+                    // scheduler = new PriorityScheduler(contextSwitchingTime);
                     break;
                 case 2:
                     // scheduler = new SJFScheduler(contextSwitchingTime);
