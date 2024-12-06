@@ -1,9 +1,8 @@
-import schedulers.*;
-import models.Process;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import models.Process;
+import schedulers.*;
 
 
 public class Main {
@@ -45,7 +44,6 @@ public class Main {
             System.out.println("3. Shortest Remaining Time First (SRTF)");
             System.out.println("4. FCAI Scheduling");
             System.out.println("5. Exit");
-
             int choice = scanner.nextInt();
             Scheduler scheduler = null;
 
