@@ -34,8 +34,12 @@ public class GUIMain {
             int burstTime = scanner.nextInt();
             System.out.print("Priority: ");
             int priority = scanner.nextInt();
+            System.out.print("Quantum: ");
+            int quantum = scanner.nextInt();
 
-            processes.add(new Process(name, color, arrivalTime, burstTime, priority, i));
+            Process process = new Process(name, color, arrivalTime, burstTime, priority, i);
+            process.setQuantum(quantum);
+            processes.add(process);
         }
         SwingUtilities.invokeLater(() -> new SchedulerLauncherGUI(processes, contextSwitchingTime));
     }

@@ -10,6 +10,7 @@ public class Process {
   private int waitingTime = 0;
   private int turnaroundTime = 0;
   private int quantum;
+  private int FCAIFactor = 0;
 
   public Process(String name, String color, int arrivalTime, int burstTime, int priority) {
     this.name = name;
@@ -18,6 +19,18 @@ public class Process {
     this.burstTime = burstTime;
     this.remainingBurstTime = burstTime;
     this.priority = priority;
+  }
+
+  // Create process from existing process to make original process in processes list unaffected from any modifications in copy 
+  public Process(Process process) {
+    this.name = process.name;
+    this.color = process.color;
+    this.arrivalTime = process.arrivalTime;
+    this.burstTime = process.burstTime;
+    this.remainingBurstTime = process.remainingBurstTime;
+    this.priority = process.priority;
+    this.quantum = process.quantum;
+    this.FCAIFactor = process.FCAIFactor;
   }
 
   public String getName() {
@@ -90,5 +103,14 @@ public class Process {
 
   public void setQuantum(int quantum) {
     this.quantum = quantum;
+  }
+
+  public int getFCAIFactor() {
+    return FCAIFactor;
+  }
+
+  public void setFCAIFactor(int FCAIFactor)
+  {
+    this.FCAIFactor = FCAIFactor;
   }
 }
