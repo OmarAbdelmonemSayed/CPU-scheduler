@@ -6,34 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import models.Process;
-
-class ExecutionRange {
-  private Process process;
-  private int left;
-  private int right;
-
-  public ExecutionRange(Process process, int left, int right) {
-      this.process = process;
-      this.left = left;
-      this.right = right;
-  }
-
-  public Process getProcess() {
-      return process;
-  }
-
-  public int getLeft() {
-      return left;
-  }
-
-  public int getRight() {
-      return right;
-  }
-
-  public void mergeRanges(int newRight) {
-      this.right = newRight;
-  }
-}
+import models.ExecutionRange;
 
 public class SRTFScheduler implements Scheduler {
 
@@ -51,7 +24,7 @@ public class SRTFScheduler implements Scheduler {
     List<Process> processes2 = new ArrayList<>();
 
     for (Process p : processes) {
-      processes2.add(new Process(p.getName(), p.getColor(), p.getArrivalTime(), p.getBurstTime(), p.getPriority()));
+      processes2.add(new Process(p.getName(), p.getColor(), p.getArrivalTime(), p.getBurstTime(), p.getPriority(), p.getID()));
     }
 
     total = processes2.size();
@@ -127,5 +100,13 @@ public class SRTFScheduler implements Scheduler {
     for (ExecutionRange e : executionOrder) {
       System.out.println("Process " + e.getProcess().getName() + " from " + e.getLeft() + " to " + e.getRight());
     }
+  }
+
+  public List<ExecutionRange> getExecutionOrder() {
+      return executionOrder;
+  }
+
+  public List<Process> getProcesses() {
+      return currentProcesses;
   }
 }
