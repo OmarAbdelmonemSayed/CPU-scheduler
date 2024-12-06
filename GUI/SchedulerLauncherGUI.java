@@ -1,13 +1,11 @@
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
-import models.Process;
-import models.ExecutionRange;
-import schedulers.*;
-
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import models.ExecutionRange;
+import models.Process;
+import schedulers.*;
 
 public class SchedulerLauncherGUI extends JFrame {
     List<Process> processes = new ArrayList<>();
@@ -67,10 +65,10 @@ public class SchedulerLauncherGUI extends JFrame {
             currentProcesses = priorityScheduler.getProcesses();
         }
         else if (title == "SJF Scheduler") {
-//            SJFScheduler sjfScheduler = new SJFScheduler(contextSwitchingTime);
-//            sjfScheduler.schedule(processes);
-//            executionRanges = sjfScheduler.getExecutionOrder();
-//            currentProcesses = sjfScheduler.getProcesses();
+        //    SJFScheduler sjfScheduler = new SJFScheduler(contextSwitchingTime);
+        //    sjfScheduler.schedule(processes);
+        //    executionRanges = sjfScheduler.getExecutionOrder();
+        //    currentProcesses = sjfScheduler.getProcesses();
         }
         else if (title == "SRTF Scheduler") {
             SRTFScheduler srtfScheduler = new SRTFScheduler(contextSwitchingTime);
@@ -119,10 +117,19 @@ public class SchedulerLauncherGUI extends JFrame {
             }
         };
 
+        float totalWaitingTime = 0;
+        float totalTurnaroundTime = 0;
+
         for (int i = 0; i < processInfos.size(); i++) {
             Process info = processInfos.get(i);
             model.addRow(new Object[]{i, info.getName(), "#" + info.getColor(), info.getPriority(), info.getWaitingTime(), info.getTurnaroundTime()});
+
+            totalWaitingTime += info.getWaitingTime();
+            totalTurnaroundTime += info.getTurnaroundTime();
         }
+
+        float avgWaitingTime = totalWaitingTime / processInfos.size();
+        float avgTurnaroundTime = totalTurnaroundTime / processInfos.size();
 
         JTable table = new JTable(model);
         table.setBackground(Color.GRAY);
@@ -132,6 +139,19 @@ public class SchedulerLauncherGUI extends JFrame {
 
         JScrollPane tableScrollPane = new JScrollPane(table);
         panel.add(tableScrollPane, BorderLayout.CENTER);
+
+        JPanel avgPanel = new JPanel();
+        avgPanel.setLayout(new BoxLayout(avgPanel, BoxLayout.Y_AXIS));
+    
+        JLabel avgWaitingTimeLabel = new JLabel(String.format("Average Waiting Time: %.2f", avgWaitingTime));
+        avgWaitingTimeLabel.setForeground(Color.BLACK);
+        avgPanel.add(avgWaitingTimeLabel);
+    
+        JLabel avgTurnaroundTimeLabel = new JLabel(String.format("Average Turnaround Time: %.2f", avgTurnaroundTime));
+        avgTurnaroundTimeLabel.setForeground(Color.BLACK);
+        avgPanel.add(avgTurnaroundTimeLabel);
+    
+        panel.add(avgPanel, BorderLayout.SOUTH);
 
         return panel;
     }
