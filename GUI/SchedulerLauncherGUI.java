@@ -61,10 +61,10 @@ public class SchedulerLauncherGUI extends JFrame {
         List<Process> currentProcesses = new ArrayList<>();
 
         if (title == "Priority Scheduler") {
-//            PriorityScheduler priorityScheduler = new PriorityScheduler(contextSwitchingTime);
-//            priorityScheduler.schedule(processes);
-//            executionRanges = priorityScheduler.getExecutionOrder();
-//            currentProcesses = priorityScheduler.getProcesses();
+            PriorityScheduler priorityScheduler = new PriorityScheduler(contextSwitchingTime);
+            priorityScheduler.schedule(processes);
+            executionRanges = priorityScheduler.getExecutionOrder();
+            currentProcesses = priorityScheduler.getProcesses();
         }
         else if (title == "SJF Scheduler") {
 //            SJFScheduler sjfScheduler = new SJFScheduler(contextSwitchingTime);
@@ -79,16 +79,16 @@ public class SchedulerLauncherGUI extends JFrame {
             currentProcesses = srtfScheduler.getProcesses();
         }
         else if (title == "FCAI Scheduler") {
-//            FCAIScheduler fcaiScheduler = new FCAIScheduler(contextSwitchingTime);
-//            fcaiScheduler.schedule(processes);
-//            executionRanges = fcaiScheduler.getExecutionOrder();
-//            currentProcesses = fcaiScheduler.getProcesses();
+            FCAIScheduler fcaiScheduler = new FCAIScheduler(contextSwitchingTime);
+            fcaiScheduler.schedule(processes);
+            executionRanges = fcaiScheduler.getExecutionOrder();
+            currentProcesses = fcaiScheduler.getProcesses();
         }
 
 
         JPanel mainPanel = new JPanel(new BorderLayout());
 
-        TimelinePanel timelinePanel = new TimelinePanel(executionRanges, executionRanges.getLast().getRight() + 10);
+        TimelinePanel timelinePanel = new TimelinePanel(executionRanges, executionRanges.get(executionRanges.size() - 1).getRight() + 10);
         JScrollPane scrollPane = new JScrollPane(timelinePanel);
         mainPanel.add(scrollPane, BorderLayout.CENTER);
 
