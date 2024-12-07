@@ -164,22 +164,8 @@ public class FCAIScheduler implements Scheduler {
         }
 
         if (isPreemetedByQuantum && availableProcesses.size() > 1) {
-
-          // Solve the filter error
-          final Process finalPrevProcess = prevProcess;
-
-          // Select the process with the highest priority (lowest FCAI factor) except the preemeted by quantum
-          nextProcess = availableProcesses.stream()
-              .filter(p -> !p.equals(finalPrevProcess))
-              .min(Comparator.comparingInt(Process::getFCAIFactor) // Primary comparison
-                  .thenComparingInt(Process::getArrivalTime)) // Secondary comparison 
-              .orElseThrow();
-
-          // Make the next process first if it is not
-          if (readyQueue.indexOf(nextProcess) != 0) {
-            readyQueue.remove(nextProcess);
-            readyQueue.add(0, nextProcess);
-          }
+          // Assign the next process to the next process in the queue
+          nextProcess = readyQueue.get(0);
         }
 
         int prevFCAIFactor = prevProcess.getFCAIFactor();
