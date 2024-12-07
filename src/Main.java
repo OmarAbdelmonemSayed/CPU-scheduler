@@ -49,13 +49,13 @@ public class Main {
 
             switch (choice) {
                 case 1:
-                    // scheduler = new PriorityScheduler(contextSwitchingTime);
+                    scheduler = new PriorityScheduler(contextSwitchingTime);
                     break;
                 case 2:
                     // scheduler = new SJFScheduler(contextSwitchingTime);
                     break;
                 case 3:
-                    // scheduler = new SRTFScheduler(contextSwitchingTime);
+                    scheduler = new SRTFScheduler(contextSwitchingTime);
                     break;
                 case 4:
                     scheduler = new FCAIScheduler(contextSwitchingTime);
