@@ -133,6 +133,11 @@ public class FCAIScheduler implements Scheduler {
                 .thenComparingInt(Process::getArrivalTime)) // Secondary comparison 
             .orElseThrow();
 
+        // If the previous process has the same FCAI factor in next process
+        // then let the previous process continue
+        if (prevProcess != null && nextProcess.getFCAIFactor() == prevProcess.getFCAIFactor())
+          nextProcess = prevProcess;
+
         // Make the next process first if it is not
         if (readyQueue.indexOf(nextProcess) != 0) {
           readyQueue.remove(nextProcess);
