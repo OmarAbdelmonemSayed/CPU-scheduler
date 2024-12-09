@@ -1,16 +1,41 @@
 package schedulers;
-
 import java.util.*;
 import models.Process;
-import models.Process;
-import models.ExecutionRange;
 
+class ExecutionRange {
+  private Process process;
+  private int left;
+  private int right;
+
+  public ExecutionRange(Process process, int left, int right) {
+      this.process = process;
+      this.left = left;
+      this.right = right;
+  }
+
+  public Process getProcess() {
+      return process;
+  }
+
+  public int getLeft() {
+      return left;
+  }
+
+  public int getRight() {
+      return right;
+  }
+
+  public void mergeRanges(int newRight) {
+      this.right = newRight;
+  }
+}
 
 public class SJFScheduler implements Scheduler {
 
   private List<ExecutionRange> executionOrder = new ArrayList<>();
   private List<Process> currentProcesses = new ArrayList<>();
   private List<Process> readyQueue = new ArrayList<>();
+  private Set<Process> completedProcesses = new HashSet<>();
   private int time = 0, completed = 0, total = 0, contextSwitchingTime = 0, agingThreshold = 10;
 
   public SJFScheduler(int contextSwitchingTime) {
@@ -22,7 +47,7 @@ public class SJFScheduler implements Scheduler {
     List<Process> processes2 = new ArrayList<>();
 
     for (Process p : processes) {
-      processes2.add(new Process(p.getName(), p.getColor(), p.getArrivalTime(), p.getBurstTime(), p.getPriority(), p.getID()));
+      processes2.add(new Process(p.getName(), p.getColor(), p.getArrivalTime(), p.getBurstTime(), p.getPriority()));
     }
 
     total = processes2.size();
@@ -31,9 +56,9 @@ public class SJFScheduler implements Scheduler {
 
     while (completed < total) {
       for (Process p : processes2) {
-        if (p.getArrivalTime() == time) {
+        if (p.getArrivalTime() <= time && !readyQueue.contains(p) && !completedProcesses.contains(p)) {
           readyQueue.add(p);
-          waitTimes.put(p, time); // Track when the process entered the queue
+          waitTimes.put(p, time);
         }
       }
 
@@ -62,6 +87,7 @@ public class SJFScheduler implements Scheduler {
           executionOrder.add(new ExecutionRange(current, left, right));
         }
         completed++;
+        completedProcesses.add(current);
         readyQueue.remove(current);
       } else {
         time++;
@@ -82,4 +108,10 @@ public class SJFScheduler implements Scheduler {
     System.out.println("Average Turnaround  Time = " + totalTurnaroundTime / total);
   }
 
-
+  @Override
+  public void printExecutionOrder() {
+    for (ExecutionRange e : executionOrder) {
+      System.out.println("Process " + e.getProcess().getName() + " from " + e.getLeft() + " to " + e.getRight());
+    }
+  }
+}

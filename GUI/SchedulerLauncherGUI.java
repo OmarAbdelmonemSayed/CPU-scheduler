@@ -65,10 +65,10 @@ public class SchedulerLauncherGUI extends JFrame {
             currentProcesses = priorityScheduler.getProcesses();
         }
         else if (title == "SJF Scheduler") {
-        //    SJFScheduler sjfScheduler = new SJFScheduler(contextSwitchingTime);
-        //    sjfScheduler.schedule(processes);
-        //    executionRanges = sjfScheduler.getExecutionOrder();
-        //    currentProcesses = sjfScheduler.getProcesses();
+           SJFScheduler sjfScheduler = new SJFScheduler(contextSwitchingTime);
+           sjfScheduler.schedule(processes);
+           executionRanges = sjfScheduler.getExecutionOrder();
+           currentProcesses = sjfScheduler.getProcesses();
         }
         else if (title == "SRTF Scheduler") {
             SRTFScheduler srtfScheduler = new SRTFScheduler(contextSwitchingTime);

@@ -1,9 +1,8 @@
 package schedulers;
 
 import java.util.*;
-import models.Process;
-import models.Process;
 import models.ExecutionRange;
+import models.Process;
 
 
 public class SJFScheduler implements Scheduler {
@@ -11,6 +10,7 @@ public class SJFScheduler implements Scheduler {
   private List<ExecutionRange> executionOrder = new ArrayList<>();
   private List<Process> currentProcesses = new ArrayList<>();
   private List<Process> readyQueue = new ArrayList<>();
+  private Set<Process> completedProcesses = new HashSet<>();
   private int time = 0, completed = 0, total = 0, contextSwitchingTime = 0, agingThreshold = 10;
 
   public SJFScheduler(int contextSwitchingTime) {
@@ -31,9 +31,9 @@ public class SJFScheduler implements Scheduler {
 
     while (completed < total) {
       for (Process p : processes2) {
-        if (p.getArrivalTime() == time) {
+        if (p.getArrivalTime() <= time && !readyQueue.contains(p) && !completedProcesses.contains(p)) {
           readyQueue.add(p);
-          waitTimes.put(p, time); // Track when the process entered the queue
+          waitTimes.put(p, time);
         }
       }
 
@@ -62,6 +62,7 @@ public class SJFScheduler implements Scheduler {
           executionOrder.add(new ExecutionRange(current, left, right));
         }
         completed++;
+        completedProcesses.add(current);
         readyQueue.remove(current);
       } else {
         time++;

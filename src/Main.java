@@ -52,7 +52,7 @@ public class Main {
                     scheduler = new PriorityScheduler(contextSwitchingTime);
                     break;
                 case 2:
-                    // scheduler = new SJFScheduler(contextSwitchingTime);
+                    scheduler = new SJFScheduler(contextSwitchingTime);
                     break;
                 case 3:
                     scheduler = new SRTFScheduler(contextSwitchingTime);
