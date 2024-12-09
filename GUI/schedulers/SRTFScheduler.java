@@ -3,16 +3,19 @@ package schedulers;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import models.Process;
+import java.util.Set;
 import models.ExecutionRange;
+import models.Process;
 
 public class SRTFScheduler implements Scheduler {
 
   private List<ExecutionRange> executionOrder = new ArrayList<>();
   private List<Process> currentProcesses = new ArrayList<>();
   private List<Process> readyQueue = new ArrayList<>();
+  private Set<Process> completedProcesses = new HashSet<>();
   private int time = 0, completed = 0, total = 0, contextSwitchingTime = 0;
 
   public SRTFScheduler(int contextSwitchingTime) {
@@ -37,7 +40,7 @@ public class SRTFScheduler implements Scheduler {
 
     while (completed < total) {
         for (Process p : processes2) {
-            if (p.getArrivalTime() == time) {
+            if (p.getArrivalTime() <= time && !readyQueue.contains(p) && !completedProcesses.contains(p)) {
                 readyQueue.add(p);
                 lastQueueTimes.put(p, time);
             }
@@ -77,6 +80,7 @@ public class SRTFScheduler implements Scheduler {
               current.setTurnaroundTime(time + 1 - current.getArrivalTime());
               current.setWaitingTime(current.getTurnaroundTime() - current.getBurstTime());
               readyQueue.remove(current);
+              completedProcesses.add(current);
           }
         }
         time++;

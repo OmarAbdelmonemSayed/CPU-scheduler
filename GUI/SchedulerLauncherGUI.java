@@ -109,7 +109,7 @@ public class SchedulerLauncherGUI extends JFrame {
         panel.add(title, BorderLayout.NORTH);
 
 
-        String[] columnNames = {"Process", "Name", "Color", "Priority", "Waiting Time", "Turnaround Time"};
+        String[] columnNames = {"Process", "Name", "Color", "Arrival Time", "Waiting Time", "Turnaround Time"};
         DefaultTableModel model = new DefaultTableModel(columnNames, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -122,7 +122,7 @@ public class SchedulerLauncherGUI extends JFrame {
 
         for (int i = 0; i < processInfos.size(); i++) {
             Process info = processInfos.get(i);
-            model.addRow(new Object[]{i, info.getName(), "#" + info.getColor(), info.getPriority(), info.getWaitingTime(), info.getTurnaroundTime()});
+            model.addRow(new Object[]{i, info.getName(), "#" + info.getColor(), info.getArrivalTime(), info.getWaitingTime(), info.getTurnaroundTime()});
 
             totalWaitingTime += info.getWaitingTime();
             totalTurnaroundTime += info.getTurnaroundTime();
